@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "815556502151",
+    "project_id": "shoppingmall-3cee6",
+    "storage_bucket": "shoppingmall-3cee6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815556502151:android:c766d127fe24d0507a8e22",
+        "android_client_info": {
+          "package_name": "com.example.shopping_mall"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYADvf-A9PAs0wXiUIBFZaMsVv-2dBhnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
