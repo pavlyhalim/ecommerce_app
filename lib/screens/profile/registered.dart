@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_mall/screens/profile/SignIn.dart';
+import 'package:shopping_mall/screens/profile/sign/SignIn.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});

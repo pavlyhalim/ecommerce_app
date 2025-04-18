@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_mall/screens/shop_cart/shop_cart.dart';
+import 'package:shopping_mall/screens/shop/ProductDetailPage.dart';
 
 // صفحة المتجر الأصلية كما كانت
 class ShopPage extends StatefulWidget {
@@ -198,9 +198,34 @@ class ItemSearchDelegate extends SearchDelegate {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductDetailPage(product: item),
+                builder: (_) => ProductDetailPage(product: {
+                  'name': 'Dark marshmallow 6 pieces',
+                  'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyrBf2cSOrocaEERxKjP80AvIOgVbkHcW0zDehQY78RkLroY8D2IcNrBxhYZLPv9jAIw&usqp=CAU',
+                  'price': 12000,
+                  'discount2': 2000,      // مثال: خصم على 2 قطعة
+                  'discount4': 8000,      // مثال: خصم على 4 قطع
+                  'arrivalDate': 'Tomorrow (Wed)',
+                  'deliveryCost': 'Free Shipping',
+                  'instructions': 'Store in Fridge · Consume within 1 year after purchase',
+                  'orderBefore': '1 p.m.',
+                  'stock': 87,
+                  'totalReviews': 1740,
+                  'reviews': [
+                    {
+                      'avatarUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyrBf2cSOrocaEERxKjP80AvIOgVbkHcW0zDehQY78RkLroY8D2IcNrBxhYZLPv9jAIw&usqp=CAU',
+                      'comment': 'Awesome taste!',
+                      'stars': 5,
+                    },
+                    {
+                      'avatarUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyrBf2cSOrocaEERxKjP80AvIOgVbkHcW0zDehQY78RkLroY8D2IcNrBxhYZLPv9jAIw&usqp=CAU',
+                      'comment': 'Too sweet for me',
+                      'stars': 3,
+                    },
+                  ],
+                }),
               ),
             );
+
           },
         );
       },
@@ -232,9 +257,34 @@ class ItemSearchDelegate extends SearchDelegate {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductDetailPage(product: item),
+                builder: (_) => ProductDetailPage(product: {
+                  'name': 'Dark marshmallow 6 pieces',
+                  'imageUrl': 'https://link.to/image.png',
+                  'price': 12000,
+                  'discount2': 2000,      // مثال: خصم على 2 قطعة
+                  'discount4': 8000,      // مثال: خصم على 4 قطع
+                  'arrivalDate': 'Tomorrow (Wed)',
+                  'deliveryCost': 'Free Shipping',
+                  'instructions': 'Store in Fridge · Consume within 1 year after purchase',
+                  'orderBefore': '1 p.m.',
+                  'stock': 87,
+                  'totalReviews': 1740,
+                  'reviews': [
+                    {
+                      'avatarUrl': 'https://via.placeholder.com/60',
+                      'comment': 'Awesome taste!',
+                      'stars': 5,
+                    },
+                    {
+                      'avatarUrl': 'https://via.placeholder.com/60',
+                      'comment': 'Too sweet for me',
+                      'stars': 3,
+                    },
+                  ],
+                }),
               ),
             );
+
           },
         );
       },
@@ -242,57 +292,4 @@ class ItemSearchDelegate extends SearchDelegate {
   }
 }
 
-// صفحة تفاصيل المنتج المحدثة مع زر سلة المشتريات في الأسفل
-class ProductDetailPage extends StatelessWidget {
-  final Map<String, dynamic> product;
-
-  const ProductDetailPage({super.key, required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(product['name']),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              product['imageUrl'],
-              width: double.infinity,
-              height: 250,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              product['name'],
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            const SizedBox(height: 5),
-            Text('Price: ${product['price']}'),
-            Text('Arrival: ${product['arrivalDate']}'),
-            Text('Delivery: ${product['deliveryCost']}'),
-            Text('Rating: ${product['rating']}'),
-            // يمكنك إضافة المزيد من التفاصيل حسب الحاجة
-          ],
-        ),
-      ),
-      // زر في الأسفل ينقلك إلى صفحة سلة المشتريات
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>  ShoppingCartScreen()),
-            );
-          },
-          child: const Text('Add to Cart'),
-        ),
-      ),
-    );
-  }
-}
 

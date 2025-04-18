@@ -158,33 +158,48 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             ),
             const SizedBox(height: 16),
             // زر Place Order
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // مثال لطباعة القيم المدخلة في وحدة التحكم
-                  print("Delivery Address: ${addressController.text}");
-                  print("Delivery Instructions: ${instructionsController.text}");
-                  print("Payment: ${paymentController.text}");
-                  print("Cash Receipt: ${cashReceiptController.text}");
-                  for (var controller in orderItemControllers) {
-                    print("Order Item: ${controller.text}");
-                  }
-                  print("Total: ${totalController.text}");
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          OrderCompleteScreen(),
-                    ),
-                  );
-                },
-                child: const Text("Place Order"),
-              ),
-            ),
           ],
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: SizedBox(
+          width: double.infinity,
+          height: 50, // ارتفاع أنيق للزر
+          child: ElevatedButton(
+            onPressed: () {
+              // طباعة القيم أو أي أكشن آخر
+              print("Delivery Address: ${addressController.text}");
+              print("Delivery Instructions: ${instructionsController.text}");
+              print("Payment: ${paymentController.text}");
+              print("Cash Receipt: ${cashReceiptController.text}");
+              for (var controller in orderItemControllers) {
+                print("Order Item: ${controller.text}");
+              }
+              print("Total: ${totalController.text}");
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderCompleteScreen(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,  // لون الزر أبيض
+              foregroundColor: Colors.white,  // لون النص أسود
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              "Place Order",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ),
+
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_mall/screens/profile/SignIn.dart';
+import 'package:shopping_mall/screens/profile/sign/SignIn.dart';
 import 'package:shopping_mall/screens/review/review.dart';
 import 'package:shopping_mall/screens/shop/shop_page.dart';
 import 'package:shopping_mall/screens/shop_cart/shop_cart.dart';
