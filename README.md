@@ -1,131 +1,116 @@
-```markdown
-# Shopping Mall
+# Shopping Mall App
 
-A Flutter application showcasing a sample shopping mall with product listings, user authentication, and sharing features.
+A Flutter e-commerce application demonstrating Firebase authentication, product browsing, and sharing functionality.
 
-## Table of Contents
+## Features
 
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Dependencies & Versions](#dependencies--versions)
-- [Setup & Installation](#setup--installation)
-- [Running the App](#running-the-app)
-- [Building for Release](#building-for-release)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+- Firebase Authentication (Email & Password)
+- Product list loaded from `products.json`
+- Bloc/Cubit state management
+- Share product details via Share Plus plugin
+- Responsive design for Android, iOS, web, and desktop
 
 ## Prerequisites
 
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) (channel stable)
-- [Dart SDK](https://dart.dev/get-dart) (>= 3.2.3 < 4.0.0)
-- Android SDK (min SDK 23, target SDK 35)
-- Xcode (for iOS, if targeting iOS)
-- A Google Firebase project configured for Android and/or iOS
+- Flutter 3.10.5 (stable)
+- Dart 2.18.1
+- Android SDK 35
+- Xcode 14 (for iOS)
+- Android Studio 2022.2 or VS Code with Flutter plugin installed
 
-## Project Structure
+## Dependencies
 
-```
-shopping_mall/
-├── android/           # Android native code & Gradle configuration
-├── ios/               # iOS native code & Xcode project
-├── lib/
-│   ├── main.dart      # App entry point
-│   ├── screens/       # UI screens (shop, profile, review, etc.)
-│   ├── widgets/       # Reusable widgets
-│   └── ...
-├── products.json      # Sample product data
-├── pubspec.yaml       # Dart/Flutter configuration
-└── README.md
-```
+| Package         | Version  |
+|-----------------|----------|
+| flutter_bloc    | ^9.1.0   |
+| bloc            | ^9.0.0   |
+| firebase_core   | ^3.13.0  |
+| firebase_auth   | ^5.5.2   |
+| share_plus      | ^7.2.1   |
+| provider        | ^6.1.1   |
+| intl            | ^0.17.0  |
+| cupertino_icons | ^1.0.2   |
 
-## Dependencies & Versions
+## Getting Started
 
-- **Flutter**: Stable channel (1.22.0 or later)
-- **Dart**: `>=3.2.3 <4.0.0`
-- **bloc**: ^9.0.0
-- **flutter_bloc**: ^9.1.0
-- **provider**: ^6.1.1
-- **firebase_core**: ^3.13.0
-- **firebase_auth**: ^5.5.2
-- **share_plus**: ^7.2.1
-- **cupertino_icons**: ^1.0.2
-- **intl**: ^0.17.0
-- Android Gradle plugin: 8.1.0
-- Kotlin plugin: 1.9.0+
-- compileSdkVersion: 35  
-- minSdkVersion: 23  
-- targetSdkVersion: 35  
-
-## Setup & Installation
-
-1. **Clone the repository**  
+1. Clone the repository:
    ```bash
-   git clone <your-repo-url>.git
+   git clone <YOUR-REPO-URL>
+   ```
+2. Navigate into the project:
+   ```bash
    cd shopping_mall
    ```
-
-2. **Install Flutter dependencies**  
+3. Install dependencies:
    ```bash
    flutter pub get
    ```
 
-3. **Configure Firebase**  
-   - Download `google-services.json` (Android) and place it in `android/app/`.
-   - Download `GoogleService-Info.plist` (iOS) and place it in `ios/Runner/`.
-   - Ensure your Firebase project has Auth enabled.
-
-4. **Set up local properties**  
-   ```bash
-   cp android/local.properties.sample android/local.properties
-   # Edit android/local.properties to point flutter.sdk and Android SDK
-   ```
-
 ## Running the App
 
-- **Android**  
-  ```bash
-  flutter run
-  ```
+### Android
+```bash
+flutter run -d emulator-5554
+```
 
-- **iOS**  
-  ```bash
-  flutter run -d ios
-  ```
+### iOS
+```bash
+flutter run -d ios
+```
 
-- **Web** (if enabled)  
-  ```bash
-  flutter run -d chrome
-  ```
+### Web
+```bash
+flutter run -d chrome
+```
 
-## Building for Release
+## Configuration
 
-- **Android APK**  
-  ```bash
-  flutter build apk --release
-  ```
+1. In `android/local.properties`, set:
+   ```
+   flutter.sdk=/path/to/flutter
+   flutter.versionCode=1
+   flutter.versionName=1.0
+   ```
+2. Place your Firebase `google-services.json` in `android/app/`.
+3. Place your Firebase `GoogleService-Info.plist` in `ios/Runner/`.
 
-- **iOS (Archive)**  
-  ```bash
-  flutter build ios --release
-  ```
+## Directory Structure
 
-After building, artifacts will be in:
-
-- Android: `build/app/outputs/flutter-apk/app-release.apk`
-- iOS: Xcode archive in `build/ios/`
+```
+lib/
+  main.dart
+  screens/
+    shop/
+      product_detail_page.dart
+    profile/
+      sign/
+        sign_cubit.dart
+  widgets/
+    home_layout.dart
+assets/
+  products.json
+android/
+ios/
+pubspec.yaml
+```
 
 ## Troubleshooting
 
-- **Gradle build errors**  
-  - Run `flutter clean` then `flutter pub get`  
-  - Verify `minSdkVersion` ≥ 23 for `firebase_auth` compatibility  
-  - Check Kotlin plugin version in `android/settings.gradle`
+- **Kotlin version errors**: In `android/build.gradle` update:
+  ```gradle
+  ext.kotlin_version = '1.8.22'
+  ```
+- **minSdkVersion errors**: Ensure `minSdkVersion` is at least 23 in `android/app/build.gradle`.
+- After changes, run:
+  ```bash
+  flutter clean
+  flutter pub get
+  ```
 
-- **Dependency conflicts**  
-  - Use `flutter pub outdated` to see mismatches  
-  - Adjust version constraints in `pubspec.yaml`
+## Contributing
+
+Contributions are welcome. Open issues or submit pull requests.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-```
+MIT License. See `LICENSE`.
