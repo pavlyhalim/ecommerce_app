@@ -48,9 +48,15 @@ A Flutter e-commerce application demonstrating Firebase authentication, product 
 
 ## Running the App
 
+
 ### Android
 ```bash
-flutter run -d emulator-5554
+flutter run -d emulator-5554 
+```
+or use this command if it did not work
+
+```bash
+flutter run --no-enable-impeller
 ```
 
 ### iOS
@@ -110,7 +116,3 @@ pubspec.yaml
 ## Contributing
 
 Contributions are welcome. Open issues or submit pull requests.
-
-## License
-
-MIT License. See `LICENSE`.
