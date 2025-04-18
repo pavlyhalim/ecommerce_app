@@ -16,8 +16,8 @@ class SignCubit extends Cubit<SignState> {
   void signIn(BuildContext context, GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: signInPhoneController.text + '@example.com', // يمكن استخدام رقم الهاتف كمثال للبريد الإلكتروني
+        /* UserCredential userCredential = */ await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: '${signInPhoneController.text}@example.com', // يمكن استخدام رقم الهاتف كمثال للبريد الإلكتروني
           password: signInPasswordController.text,
         );
 
@@ -35,8 +35,8 @@ class SignCubit extends Cubit<SignState> {
         emit(SignUpFailed("Passwords do not match"));
       } else {
         try {
-          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: signUpPhoneController.text + '@example.com', // يمكن استخدام رقم الهاتف كمثال للبريد الإلكتروني
+           /* UserCredential userCredential = */ await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: '${signUpPhoneController.text}@example.com', // يمكن استخدام رقم الهاتف كمثال للبريد الإلكتروني
             password: signUpPasswordController.text,
           );
 

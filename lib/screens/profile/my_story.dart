@@ -4,10 +4,10 @@ class StoryScreen extends StatefulWidget {
   const StoryScreen({super.key});
 
   @override
-  _StoryScreenState createState() => _StoryScreenState();
+  StoryScreenState createState() => StoryScreenState();
 }
 
-class _StoryScreenState extends State<StoryScreen> {
+class StoryScreenState extends State<StoryScreen> {
   late List<Post> posts;
 
   @override
@@ -123,10 +123,10 @@ class PostCard extends StatefulWidget {
   const PostCard({super.key, required this.post});
 
   @override
-  State<PostCard> createState() => _PostCardState();
+  State<PostCard> createState() => PostCardState();
 }
 
-class _PostCardState extends State<PostCard> {
+class PostCardState extends State<PostCard> {
   // حالات تحديد التفاعل: إعجاب وتعليق
   bool hasLiked = false;
   bool hasCommented = false;
@@ -169,7 +169,7 @@ class _PostCardState extends State<PostCard> {
       });
       _commentController.clear();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تم إضافة التعليق')),
+        const SnackBar(content: Text('تم إضافة التعليق'))
       );
     }
   }

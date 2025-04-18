@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_mall/screens/profile/CancelMember.dart';
+import 'package:shopping_mall/screens/profile/cancel_member.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
 
   @override
-  _MyPageState createState() =>
-      _MyPageState();
+  MyPageState createState() =>
+      MyPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class MyPageState extends State<MyPage> {
   // Controllers for input fields
   final TextEditingController _nicknameController =
   TextEditingController(text: 'pang2chocolate');
@@ -60,7 +60,7 @@ class _MyPageState extends State<MyPage> {
       const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(color: Colors.white),
+        borderSide: const BorderSide(color: Colors.white),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -147,7 +147,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>CancelSubscriptionScreen()
+                          MaterialPageRoute(builder: (context)=>const CancelMember()
                           ));
 
                     },

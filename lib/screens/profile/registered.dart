@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_mall/screens/profile/sign/SignIn.dart';
+import 'package:shopping_mall/screens/profile/profile.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -12,10 +12,10 @@ class SuccessScreen extends StatelessWidget {
           Navigator.pop(
             context,
             MaterialPageRoute(
-              builder: (context) => ProfileScreen(),
+              builder: (context) => const ProfilePage(),
             ),
           );
-        }, icon: Icon(Icons.arrow_back_outlined)),
+        }, icon: const Icon(Icons.arrow_back_outlined)),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(

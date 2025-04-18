@@ -1,170 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_mall/screens/review/order%20history.dart';
+import 'package:shopping_mall/models/order.dart';
 
-class ReviewScreen extends StatefulWidget {
-  @override
-  _ReviewScreenState createState() => _ReviewScreenState();
-}
+class ReviewScreen extends StatelessWidget {
+  final Order? order;
 
-class _ReviewScreenState extends State<ReviewScreen> {
-  int currentRating = 0; // التقييم الحالي
-  TextEditingController reviewController = TextEditingController(); // للتحكم في النص
+  const ReviewScreen({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2, // عدد التبويبات
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Reviews and Orders'),
-          elevation: 2,
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'Write a Review'),
-              Tab(text: 'Order History'),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            WriteReviewTab(
-              onRatingSelected: (rating) {
-                setState(() {
-                  currentRating = rating;
-                });
+    return Scaffold(
+      appBar: AppBar(title: const Text('Review Order')),
+      body: order == null || order!.products.isEmpty
+          ? const Center(child: Text('No products to review.'))
+          : ListView.builder(
+              itemCount: order!.products.length,
+              itemBuilder: (context, index) {
+                final product = order!.products[index];
+                return ReviewItem(product: product);
               },
-              currentRating: currentRating,
-              reviewController: reviewController,
             ),
-            OrderHistoryPage(),
-          ],
-        ),
-      ),
     );
   }
 }
 
-class WriteReviewTab extends StatelessWidget {
-  final Function(int) onRatingSelected;
-  final int currentRating;
-  final TextEditingController reviewController;
+class ReviewItem extends StatefulWidget {
+  final dynamic product;
 
-  WriteReviewTab({
-    required this.onRatingSelected,
-    required this.currentRating,
-    required this.reviewController,
-  });
+  const ReviewItem({Key? key, this.product}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ReviewItem(
-          itemName: "Penguin Chocolate",
-          itemImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTuKdstaRR3eVsDtudLS0mUiDKmDXhEzKg6EgRQP1u4OyMt9SE-ThMeA5rPaD2QpHxcYg&usqp=CAU",
-          onRatingSelected: onRatingSelected,
-          currentRating: currentRating,
-          reviewController: reviewController,
-        ),
-      ],
-    );
-  }
+  State<ReviewItem> createState() => _ReviewItemState();
 }
 
-class ReviewItem extends StatelessWidget {
-  final String itemName;
-  final String itemImageUrl;
-  final Function(int) onRatingSelected;
-  final int currentRating;
-  final TextEditingController reviewController;
-
-  ReviewItem({
-    required this.itemName,
-    required this.itemImageUrl,
-    required this.onRatingSelected,
-    required this.currentRating,
-    required this.reviewController,
-  });
-
-  void submitReview(BuildContext context) {
-    if (currentRating == 0 || reviewController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please complete your review before submitting.')),
-      );
-      return;
-    }
-
-    // تنفيذ إرسال المراجعة (يمكن الاتصال بالخادم هنا)
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Review submitted successfully!')),
-    );
-
-    // إعادة التهيئة
-    reviewController.clear();
-    onRatingSelected(0);
-  }
+class _ReviewItemState extends State<ReviewItem> {
+  double _rating = 0;
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8.0),
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              widget.product.name,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
             Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    // Redirect to item details
+                const Text('Rating:'),
+                const SizedBox(width: 8),
+                DropdownButton<double>(
+                  value: _rating == 0 ? null : _rating,
+                  hint: const Text('Select rating'),
+                  items: [1.0, 2.0, 3.0, 4.0, 5.0].map((double value) {
+                    return DropdownMenuItem<double>(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _rating = value!;
+                    });
                   },
-                  child: Image.network(
-                    itemImageUrl,
-                    width: 100,
-                    height: 100,
-                  ),
-                ),
-                SizedBox(width: 12),
-                GestureDetector(
-                  onTap: () {
-                    // Redirect to item details
-                  },
-                  child: Text(
-                    itemName,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
-            Row(
-              children: List.generate(
-                5,
-                    (index) => IconButton(
-                  icon: Icon(
-                    index < currentRating ? Icons.star : Icons.star_border,
-                  ),
-                  onPressed: () {
-                    onRatingSelected(index + 1);
-                  },
-                ),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: _commentController,
+              decoration: const InputDecoration(
+                labelText: 'Comment',
+                border: OutlineInputBorder(),
               ),
+              maxLines: 3,
             ),
-            TextField(
-              controller: reviewController,
-              decoration: InputDecoration(
-                labelText: 'Write your review...',
-              ),
-            ),
+            const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () => submitReview(context),
-              child: Text('Submit Review'),
+              onPressed: () {
+                // Submit review logic here
+                submitReview(widget.product, _rating, _commentController.text);
+              },
+              child: const Text('Submit Review'),
             ),
           ],
         ),
       ),
     );
   }
-}
 
+  void submitReview(product, rating, comment) {
+    print('Review submitted for ${product.name} with rating $rating and comment: $comment');
+  }
+}

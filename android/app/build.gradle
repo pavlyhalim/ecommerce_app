@@ -1,69 +1,76 @@
-plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
-}
-
+// Load Flutter SDK location and version info
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+  localPropertiesFile.withReader('UTF-8') { reader ->
+    localProperties.load(reader)
+  }
 }
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+def flutterSdkPath = localProperties.getProperty('flutter.sdk')
+if (flutterSdkPath == null) {
+  throw new GradleException("flutter.sdk not set in local.properties")
 }
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')?.toInteger() ?: 1
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
-android {
-    namespace "com.example.shopping_mall"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
-    defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.shopping_mall"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }
-
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
-        }
-    }
-}
-
-flutter {
-    source '../..'
-}
-
-dependencies {}
+// Apply the Android and Kotlin plugins
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+// Firebase / Google Services
 apply plugin: 'com.google.gms.google-services'
 
+android {
+  namespace 'com.example.shopping_mall'
+  compileSdkVersion 35
+
+  defaultConfig {
+    applicationId "com.example.shopping_mall"
+    minSdkVersion 23
+    targetSdkVersion 35
+    versionCode flutterVersionCode
+    versionName flutterVersionName
+  }
+
+  // ── WORKAROUND: force firebase‑auth down to 23.1.1 (Kotlin metadata match) ─────
+  configurations.all {
+    resolutionStrategy.eachDependency { details ->
+      if (details.requested.group == "com.google.firebase"
+          && (details.requested.name == "firebase-auth" ||
+              details.requested.name == "firebase-auth-api")) {
+        details.useVersion "23.1.1"
+        details.because("Kotlin metadata mismatch workaround")
+      }
+    }
+  }
+  // ────────────────────────────────────────────────────────────────────────────────
+
+  buildTypes {
+    debug {
+      signingConfig signingConfigs.debug
+      minifyEnabled false
+    }
+    release {
+      signingConfig signingConfigs.debug
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+
+dependencies {
+  implementation platform('com.google.firebase:firebase-bom:31.5.0')
+  implementation 'com.google.firebase:firebase-auth'
+  // …any other native Android libs you need…
+}
+
+// THIS makes `flutter run` pick up your APK.
+apply from: "$flutterSdkPath/packages/flutter_tools/gradle/flutter.gradle"

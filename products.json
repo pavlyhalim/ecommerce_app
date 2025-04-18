@@ -1,0 +1,101 @@
+[
+  {
+    "id": "101",
+    "name": "Apple",
+    "description": "Fresh and crisp apple",
+    "price": 1.0,
+    "imageUrl": "https://example.com/apple.jpg",
+    "category": "Fruits",
+    "quantity": 1
+  },
+  {
+    "id": "102",
+    "name": "Banana",
+    "description": "Ripe and sweet banana",
+    "price": 0.5,
+    "imageUrl": "https://example.com/banana.jpg",
+    "category": "Fruits",
+    "quantity": 1
+  },
+  {
+    "id": "103",
+    "name": "Juice",
+    "description": "Sweet and healthy juice",
+    "price": 1.5,
+    "imageUrl": "https://example.com/juice.jpg",
+    "category": "Fruits",
+    "quantity": 1
+  },
+  {
+    "id": "104",
+    "name": "Carrot",
+    "description": "Crunchy and nutritious carrot",
+    "price": 0.75,
+    "imageUrl": "https://example.com/carrot.jpg",
+    "category": "Vegetables",
+    "quantity": 1
+  },
+  {
+    "id": "105",
+    "name": "Broccoli",
+    "description": "Healthy and green broccoli",
+    "price": 1.5,
+    "imageUrl": "https://example.com/broccoli.jpg",
+    "category": "Vegetables",
+    "quantity": 1
+  },
+  {
+    "id": "106",
+    "name": "Milk",
+    "description": "Fresh and creamy milk",
+    "price": 2.0,
+    "imageUrl": "https://example.com/milk.jpg",
+    "category": "Dairy",
+    "quantity": 1
+  },
+  {
+    "id": "107",
+    "name": "Cheese",
+    "description": "Delicious cheddar cheese",
+    "price": 3.0,
+    "imageUrl": "https://example.com/cheese.jpg",
+    "category": "Dairy",
+    "quantity": 1
+  },
+  {
+    "id": "108",
+    "name": "Chocolate Bar",
+    "description": "Sweet and indulgent chocolate bar",
+    "price": 1.25,
+    "imageUrl": "https://example.com/chocolate.jpg",
+    "category": "Snacks",
+    "quantity": 1
+  },
+  {
+    "id": "109",
+    "name": "Potato Chips",
+    "description": "Salty and crispy potato chips",
+    "price": 1.0,
+    "imageUrl": "https://example.com/chips.jpg",
+    "category": "Snacks",
+    "quantity": 1
+  },
+  {
+    "id": "110",
+    "name": "Bread",
+    "description": "Freshly baked bread",
+    "price": 2.5,
+    "imageUrl": "https://example.com/bread.jpg",
+    "category": "Baked Goods",
+    "quantity": 1
+  },
+  {
+    "id": "111",
+    "name": "Cake",
+    "description": "Delicious chocolate cake",
+    "price": 4.0,
+    "imageUrl": "https://example.com/cake.jpg",
+    "category": "Baked Goods",
+    "quantity": 1
+  }
+]

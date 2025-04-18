@@ -1,14 +1,15 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.10'
     repositories {
         google()
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.2'
-
+        classpath "com.android.tools.build:gradle:8.1.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "com.google.gms:google-services:4.3.15"
+        // NOTE: no Flutter plugin here; it’ll be applied in app/build.gradle
     }
 }
 
@@ -19,14 +20,14 @@ allprojects {
     }
 }
 
-rootProject.buildDir = '../build'
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
-}
-
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+// Ensure any Android library modules (e.g. firebase_auth) get a namespace & BuildConfig
+subprojects { project ->
+    project.plugins.withId('com.android.library') {
+        project.extensions.configure(
+            com.android.build.gradle.LibraryExtension
+        ) { libExt ->
+            libExt.namespace = 'com.example.shopping_mall'
+            libExt.buildFeatures.buildConfig = true
+        }
+    }
 }

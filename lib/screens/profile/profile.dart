@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shopping_mall/screens/profile/my_page.dart';
 import 'package:shopping_mall/screens/profile/my_story.dart';
 
-class profile_page extends StatelessWidget {
-  const profile_page({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class profile_page extends StatelessWidget {
             ],
           ),
         ),
-        body:  TabBarView(
+        body:  const TabBarView(
           children: [
             StoryScreen(),
             MyPage(),
